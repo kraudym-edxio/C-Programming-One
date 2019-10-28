@@ -91,7 +91,8 @@ int main(void) {
 					scanf("%d", &num);
 	
 					if (num == 0) { //If user enters zero breaks out of two loops via goto command
-						goto replay_option;
+						check++;
+						break;
 					}
 				
 					if (num >= 1 && num <= 9) {
@@ -120,7 +121,6 @@ int main(void) {
 		int replay;
 		
 		//Replay Option/Prompt
-		replay_option: 
 		printf("\nWould you like to play again? (1. Yes, 2. No): ");
 		scanf("%d", &replay);
 
