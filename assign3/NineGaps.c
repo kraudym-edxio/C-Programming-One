@@ -1,3 +1,9 @@
+/* 
+	NineGaps.c
+	Completed by: Edxio Kraudy Mora
+	Date: Wednesday November 6, 2019
+*/
+
 #include <stdio.h> 
 #include <stdlib.h>
 #include <time.h>
@@ -6,21 +12,28 @@ int main(void) {
 
 	//Showing the player a Welcome Message
 	printf("Welcome to the Nine-Gaps game!...\n");
-	printf("*******\n");
-	printf("*****\n");
-	printf("***\n");
-	printf("*\n \n");
+	printf("******************************\n");
+	printf("     ********************\n");
+	printf("          **********\n");
+	printf("            *****\n");
+	printf("              *\n\n");
 
-	//Start loop regarding game difficulty
-	int difficulty;
-	int valid;
-	int gameState;
+	//Variable initialization and declaration
+	char check_game = 1;
 
-	//Variable Initialization regarding sentinel game values	
-	gameState = 0;
-	valid = 0;
-
-	while (gameState == 0) {  
+	int difficulty = 0;
+	int valid = 0;
+		
+	int i, j;
+	
+	int play_again;
+	int missing_count;	
+	
+	int row_results[3];
+	int column_results[3];
+	
+	//Beginning of outer loop		
+	do { 
 
 		/* Ask the player to select the level of difficulty. The player can 
 		choose from the following difficulties: beginner, intermediate, 
@@ -68,7 +81,7 @@ int main(void) {
 
 		srand(time(NULL));		
 
-		for (int i = 0; i < 50; i++) {
+		for (int a = 0; a < 50; a++) {
 		
 			random_1 = rand() % 9;
 			random_2 = rand() % 9;
@@ -81,29 +94,47 @@ int main(void) {
 
 		/////////////////////////////////////////////////////////////////////////////
 		// 2. Generate random operators (+, -, *) 
-		// 3. Calculate the results in columns and rows
 	
 		char operators_array[12];
-		int operator;
 
-		for (int missing = 0; missing <= 5; missing++) {
-	
-			operator = rand() % 3;
-		
-			if (operator == 0 ) { //Addition
-				
+		for (int g = 0; g <= 11; g++) {
+			
+			int rand_num = rand() % 3;
+			
+			if (rand_num == 0) {
+				operators_array[g] = '+';
 			}
-	
-			else if (operator == 1) { //Subtraction
+
+			else if (rand_num == 1) {
+				operators_array[g] = '-';
+			}
+
+			else {
+				operators_array[g] = '*';
+			}
+			
+		}
+		
+		/////////////////////////////////////////////////////////////////////////////	
+		// 3. Calculate the results in columns and rows
+
+		//Calculating row results
+		for (int f = 0; f <= 11; f++) {
+			
+			if (operators_array[f] == 0 && operators_array[f+1] == 1) {
+						
+			for (int u = 0; y <= 2; u++) {
+
+			}			
 
 			}	
+		}
 
-			else { //Multiplication
-
-			}
+		//Calculating column results
+		for (int h = 0; h <= 2, h++) {
 
 		}
-	
+		
 		/////////////////////////////////////////////////////////////////////////////
 		// 4. Initializing missing array to 0
 
@@ -121,9 +152,9 @@ int main(void) {
 		/////////////////////////////////////////////////////////////////////////////
 		
 		//Based on the selected difficulty, 3, 5, or 7 board values will be hidden		
-		int i = 0; // initializing i to 0
+		i = 0; // initializing i to 0
     
-		while (i < difficulty*2+1){								
+		while (i < difficulty*2+1) {								
 
 			int r = rand() % 3;
 			int c = rand() % 3;
@@ -143,17 +174,15 @@ int main(void) {
 
 		int temp_board[9];
 
-		for (int m = 0; m <= 8; m++) {
-			temp_board[m] = game_board[m];
+		for (int b = 0; b <= 8; b++) {
+			temp_board[b] = game_board[b];
 		}
 
 		/////////////////////////////////////////////////////////////////////////////
 	
 		//The inner loop to get values from the user
 
-		int row_results[3];
-		int column_results[3];
-		int j = 0;
+		j = 0;
 	
 		do { //Beginning of inner loop
 
@@ -206,39 +235,37 @@ int main(void) {
 			/////////////////////////////////////////////////////////////////////////////
 			// 7. Display the missing values and update the missing_count variable
 		
-			int missing_count;
-
-
+			
 
 			/////////////////////////////////////////////////////////////////////////////
 			// 8. Break if the missing values are empty 
-
-
-
+			
+			
+			
 			/////////////////////////////////////////////////////////////////////////////
 
 			//Get the user's guess (location and value) and check inputs' validity
  		
 			int r, c, v;
 
-			printf("Enter a row number (1-3), column(1-3), value(One of the missing values):\n");
+			printf("Enter a row number (1-3), column(1-3), and a value (one of the missing values): ");
 	        	scanf("%d %d %d", &r, &c, &v);
 	        
 			if (r==0 || c==0 || v==0)
-	            		break;
+	         		break;
 	        
 	       		if (r < 1 || r > 3 || c < 1 || c > 3){
-	            		puts("Invalid row and/or column numbers. Try again.");
+	            		printf("Invalid row and/or column numbers. Try again.");
 	           	 	continue;
 	        	}
 	        
 	       		if (v < 1 || v > 9) {
-	           		puts("Invalid cell value. Try again.");
+	           		printf("Invalid cell value. Try again.");
 	           		continue;
 	        	}
 	        
 	       		if (missing_array[v-1]<1) {
-	            		puts("This value is already there. Try again.");
+	            		printf("This value is already there. Try again.");
 	            		continue;
 	        	}
 
@@ -246,9 +273,7 @@ int main(void) {
 			/* 9. If the selected cell is changeable, add the value into the cell and remove
 			it from the missing values, in other case show an error and repeat the inner loop */
 
-
-
-
+			
 
 			/////////////////////////////////////////////////////////////////////////////
 				
@@ -259,29 +284,25 @@ int main(void) {
 
 
 
-
 		/////////////////////////////////////////////////////////////////////////////
 		
-		int replay;
-		
-		//Replay Option/Prompt
-		printf("\nWould you like to play again? (1. Yes, 2. No): ");
-		scanf("%d", &replay);
+		if (check_game) //Display Winning/Losing Message
+            		printf ("**** Congratulations!!! ****\n *** You Won!!!! *** \n");
+        
+		else
+            		printf (":( Sorry it is not correct :( \n");
+        
+        	printf("#######################################\n");
+        	printf("   Do you want to play again? (Yes:1, No:0)\n"); // ask the user to play again
+        	printf("#######################################\n");
+        	scanf ("%d", &play_again);
+        
+        	if (!play_again) {
+            		printf("Bye!\n");
+           	 	break;
+        	}
 
-		if (replay == 1) {
-			printf("Play Again selected\n \n");
-			
-			//Restart Game- reinitialize variables to sentinel value
-			valid = 0;
-			gameState = 0;
-		}	
 
-		else {
-			//Goodbye and Quit
-			gameState++;
-			printf("See you soon! Goodbye!...\n \n");
-		}
-
-	}
+	} while (1); //End the outer loop
 
 }
