@@ -112,33 +112,76 @@ int main(void) {
 			else {
 				operators_array[g] = '*';
 			}
+
+			//printf("%c", operators_array[g]);
 			
 		}
 		
 		/////////////////////////////////////////////////////////////////////////////	
 		// 3. Calculate the results in columns and rows
+	
+		for (int h = 0; h <= 12; h++) {
+		
+			if (operators_array[h] == '+') {
+				
+				row_results[0] = main_board[h] + main_board[h+1];
 
-		//Calculating row results
-		for (int f = 0; f <= 11; f++) {
+				if (operators_array[h+1] == '+') {
+					row_results[0] = row_results[0] + main_board[h+2];				
+				}		
+
+				else if (operators_array[h+1] == '-') {
+					row_results[0] = row_results[0] - main_board[h+2];	
+				}
+
+				else {
+					row_results[0] = row_results[0] * main_board[h+2];	
+				}
+
+			}
+
+			else if (operators_array[h] == '-') {
 			
-			if (operators_array[f] == 0 && operators_array[f+1] == 1) {
-						
-			for (int u = 0; y <= 2; u++) {
+				row_results[0] = main_board[h] - main_board[h+1];
 
-			}			
+				if (operators_array[h+1] == '+') {
+					row_results[0] = row_results[0] + main_board[h+2];				
+				}		
+
+				else if (operators_array[h+1] == '-') {
+					row_results[0] = row_results[0] - main_board[h+2];	
+				}
+
+				else {
+					row_results[0] = row_results[0] * main_board[h+2];	
+				}
 
 			}	
-		}
 
-		//Calculating column results
-		for (int h = 0; h <= 2, h++) {
+			else {
+				
+				row_results[0] = main_board[h] * main_board[h+1];
 
-		}
-		
+				if (operators_array[h+1] == '+') {
+					row_results[0] = row_results[0] + main_board[h+2];				
+				}		
+
+				else if (operators_array[h+1] == '-') {
+					row_results[0] = row_results[0] - main_board[h+2];	
+				}
+
+				else {
+					row_results[0] = row_results[0] * main_board[h+2];	
+				}
+
+			}		
+	
+		}	
+	
 		/////////////////////////////////////////////////////////////////////////////
 		// 4. Initializing missing array to 0
 
-		int missing_array[9] = {0};	
+		int missing_array[9] = {};	
 	
 		/////////////////////////////////////////////////////////////////////////////
 		// 5. Copy the main_board into game_board

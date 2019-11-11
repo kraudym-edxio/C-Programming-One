@@ -46,6 +46,21 @@ int main (void) {
 
 	int num;
 
+	printf("The binary conversion of 1 is ");
+	convert(1);
+
+	printf("The binary conversion of 2 is ");
+	convert(2);
+
+	printf("The binary conversion of 10 is ");
+	convert(10);
+
+	printf("The binary conversion of 1001 is ");
+	convert(1001);
+
+	printf("The binary conversion of 90250 is ");
+	convert(90250);
+
 	printf("Enter any postive decimal number to convert it into binary: ");
 	scanf("%d", &num);
 
