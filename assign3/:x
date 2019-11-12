@@ -112,102 +112,22 @@ int main(void) {
 			else {
 				operators_array[g] = '*';
 			}
+
+			printf("%c   ", operators_array[g]);
 			
 		}
 
+		printf("\n \n");
+		
 		/////////////////////////////////////////////////////////////////////////////	
 		// 3. Calculate the results in columns and rows
+
 	
-		//Calculating the row results
-		int row_counter = 0;
-		int row_index = 0;
-		
-		row_results[0] = main_board[0];
-		row_results[1] = main_board[3];
-		row_results[2] = main_board[6];
-	
-		for (int pos = 0; pos <= 8; pos++) {
-		
-			//Determining the operator needed	
-			if (operators_array[row_counter] == '+') {
-				row_results[row_index] = row_results[row_index] + main_board[pos+1];
-			}
 
-			else if (operators_array[row_counter] == '-') {
-				row_results[row_index] = row_results[row_index] - main_board[pos+1];
-			}
-
-			else { 
-				row_results[row_index] = row_results[row_index] * main_board[pos+1];	
-			}		
-
-			row_counter++;	
-	
-			//Checking for a row switch
-			if (row_counter == 2) {
-				pos = 3;
-				row_index++;
-			} 
-			
-			else if (row_counter == 4) {
-				pos = 6;
-				row_index++;
-			}
-			
-			//Check to see if all six operators regarding rows have been looped through
-			if (row_counter == 5) {
-				break;
-			}
-		
-		}
-
-		//Calculating the column results
-/*		int column_counter = 6;
-		int column_index = 0;
-
-		column_results[0] = main_board[0];
-		column_results[1] = main_board[1];
-		column_results[2] = main_board[2];
-
-		for (int loc = 0; loc <= 8; loc++) {
-	
-			//Determing the operator needed
-			if (operators_array[column_counter] == '+') {
-				column_results[column_index] = column_results[column_index] + main_board[loc+1];
-			}
-
-			else if (operators_array[column_counter] == '-') {
-				column_results[column_index] = column_results[column_index] - main_board[loc+1];
-			}
-
-			else {
-				column_results[column_index] = column_results[column_index] * main_board[loc+1];
-			}
-
-			column_counter++;
-
-			//Checking for a column switch
-			if (column_counter == 8) {
-				loc = 1;
-				column_index++;
-			}
-
-			else if (column_counter == 10) {
-				loc = 2;
-				column_index++;
-			}
-
-			//Checking to see if all six operators regarding columns have been looped through
-			if (column_counter == 11) {
-				break;
-			}
-
-		}
-*/	
 		/////////////////////////////////////////////////////////////////////////////
 		// 4. Initializing missing array to 0
 
-		int missing_array[9] = {0};	
+		int missing_array[9] = {};	
 	
 		/////////////////////////////////////////////////////////////////////////////
 		// 5. Copy the main_board into game_board
@@ -304,9 +224,9 @@ int main(void) {
 			/////////////////////////////////////////////////////////////////////////////
 			// 7. Display the missing values and update the missing_count variable
 		
-			printf("List of Missing Values:\n \n");			
+			printf("List of Missing Values: ");			
 
-			
+		
 
 			printf("\n---------------------------------------------------\n");
 		
