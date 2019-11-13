@@ -168,7 +168,7 @@ int main(void) {
 		column_results[1] = main_board[1];
 		column_results[2] = main_board[2];
 	
-		while (1) {
+		while (oper_counter < 12) {
 		
 			//Determining the operator needed	
 			if (operators_array[oper_value] == '+') {
@@ -200,15 +200,10 @@ int main(void) {
 				oper_value = 8;
 			}
 		
-			//Check to see if all six operators regarding columns have been looped through
-			if (oper_counter == 12) {
-				break;
-			}
-		
 		}
 
 		/////////////////////////////////////////////////////////////////////////////
-		// 4. Initializing missing temp_boarday to 0
+		// 4. Initializing missing_array to 0
 
 		int missing_array[9] = {0};
 	
@@ -349,7 +344,7 @@ int main(void) {
 	        	}
 	        
 	       		if (missing_array[v-1]<1) {
-	            		printf("This value is already there. Try again.\n");
+	            		printf("This is not a missing value. Try again.\n");
 	            		continue;
 	        	}
 
@@ -357,68 +352,69 @@ int main(void) {
 			/* 9. If the selected cell is changeable, add the value into the cell and remove
 			it from the missing values, in other case show an error and repeat the inner loop */
 
-			if (r > 0 && r <= 3 && c > 0 && c <= 3 && v >= 1 && v <= 9) {
-			
-				//If input embodies first column
-				if (c == 1) {
-				
-					if (r == 1) {
-						temp_board[0] = v;
-					}
-
-					if (r == 2) {
-						temp_board[3] = v;
-					}
-
-					else {
-						temp_board[6] = v;
-					}
-
-					missing_count--;
-
-				}	
+			//Determining if selected cell is changeable
+//			if () {
+//				printf("Invalid input, cell is not changeable\n");
+//			}
 		
-				//If input embodies second column
-				else if (c == 2 && r > 0 && r <= 3) {
-				
-					if (r == 1) {
-						temp_board[1] = v;
-						
-					}
 
-					if (r == 2) {
-						temp_board[4] = v;
-					}
-
-					else {
-						temp_board[7] = v;
-					}
-
-					missing_count--;
-
+			//If input embodies first column
+			if (r == 1) {
+			
+				if (c == 1) {
+					temp_board[0] = v;
 				}
 
-				//If input embodies third column
+				else if (c == 2) {
+					temp_board[1] = v;
+				}
+
 				else {
-	
-					if (r == 1) {
-						temp_board[2] = v;
-					}
+					temp_board[2] = v;
+				}
 
-					if (r == 2) {
-						temp_board[5] = v;
-					}
-
-					else {
-						temp_board[8] = v;
-					}
-
-					missing_count--;
-
-				}	
+				missing_count--;
 
 			}	
 		
+			//If input embodies second column
+			else if (r == 2) {
+				
+				if (c == 1) {
+					temp_board[3] = v;		
+				}
+
+				else if (c == 2) {
+					temp_board[4] = v;
+				}
+
+				else {
+					temp_board[5] = v;
+				}
+
+				missing_count--;
+
+			}
+
+			//If input embodies third column
+			else {
+	
+				if (c == 1) {
+					temp_board[6] = v;
+				}
+
+				else if (c == 2) {
+					temp_board[7] = v;
+				}
+
+				else {
+					temp_board[8] = v;
+				}
+
+				missing_count--;
+
+			}	
+
 			/////////////////////////////////////////////////////////////////////////////
 				
 		} while (1); //End of inner loop which started on line 172
@@ -438,16 +434,16 @@ int main(void) {
 		/////////////////////////////////////////////////////////////////////////////
 		
 		if (check_game) //Display Winning/Losing Message
-            		printf ("**** Congratulations!!! ****\n *** You Won!!!! *** \n");
+            		printf ("**** Congratulations, you won!!! ****\n");
         
 		else
-            		printf (":( Sorry it is not correct :( \n");
+            		printf ("Numbers were allocated incorrectly, you lose.\n");
         
-        	printf("#######################################\n");
-        	printf("   Do you want to play again? (Yes:1, No:0)\n"); // ask the user to play again
-        	printf("#######################################\n");
-        	scanf("%d", &play_again);
-        
+        	printf("#############################################\n");
+        	printf("Would you like to play again? (Yes:1, No:0)\n"); // ask the user to play again
+        	printf("#############################################\n");
+       		scanf("%d", &play_again);
+         	
         	if (!play_again) {
             		printf("Bye!\n");
            	 	break;

@@ -4,26 +4,10 @@
 	Date: November 9, 2019
 */
 
-
 #include <stdio.h>
+long fact (int num);
 
 //The minimum range of values for long ints is –2147483647 to +2147483647.
-
-long fact (int num) {
-
-	long step;
-	long save = num;	
-
-	for (int a = num - 1; a >= 1; a--) {	
-
-		step = save * a;
-		save = step;
-
-	}
-
-	return save;
-
-}
 
 int main (void) {
 
@@ -40,5 +24,22 @@ int main (void) {
 	scanf("%d", &num);
 
 	printf("Factorial of %d is %ld\n", num, fact(num));
+
+}
+
+//Factorial function
+long fact (int num) {
+
+	long step;
+	long save = num;	
+
+	for (int a = num - 1; a >= 1; a--) {	
+
+		step = save * a;
+		save = step;
+
+	}
+
+	return save;
 
 }

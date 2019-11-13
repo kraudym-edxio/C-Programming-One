@@ -6,13 +6,7 @@
 
 #include <stdio.h>
 #include <math.h>
-
-//Area function
-float area (int r) {
-
-	return (r * r * 3.14159);
-
-}
+float area (int r);
 
 //Variable Declaration
 int r;
@@ -25,5 +19,12 @@ int main (void) {
 
 	//Print the area of the circle
 	printf("The area of a circle with radius %d is %.2f\n", r, area(r));
+
+}
+
+//Area function
+float area (int r) {
+
+	return (r * r * 3.14159);
 
 }
