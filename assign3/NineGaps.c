@@ -10,66 +10,66 @@
 
 int main(void) {
 
-	//Showing the player a Welcome Message
-	printf("Welcome to the Nine-Gaps game!...\n");
-	printf("******************************\n");
-	printf("     ********************\n");
-	printf("          **********\n");
-	printf("            *****\n");
-	printf("              *\n\n");
-
-	//Variable initialization and declaration
 	char check_game = 1;
-
-	int difficulty = 0;
-	int valid = 0;
-		
 	int i, j;
 	
+	int level;
 	int play_again;
 	int missing_count;	
 	
 	int row_results[3];
 	int column_results[3];
+
+	do {
+		check_game = 1;
+	        level = 0;
+
+		//Showing the player a Welcome Message
+        	printf("Welcome to Nine-Gaps game!...\n");
+		printf("*****************************\n");
+        	printf("      *****************      \n");
+		printf("            *****            \n");
+		printf("              *              \n");
 	
-	//Beginning of outer loop		
-	do { 
-
-		/* Ask the player to select the level of difficulty. The player can 
-		choose from the following difficulties: beginner, intermediate, 
-		advanced, and expert. */
-
-		while (valid == 0) { //Start While for difficulty
-				
-			printf("What difficulty would you like to play in? (1. Beginner, 2. Intermediate, 3. Advanced, 4. Expert): ");
-			scanf("%d", &difficulty);
-	
-			if (difficulty == 1) {
-				valid++;
-				printf("Beginner difficulty selected\n");
-			}
-	
-			else if (difficulty == 2) {
-				valid++;
-				printf("Intermediate difficulty selected\n");
-			}
-
-			else if (difficulty == 3) {
-				valid++;
-				printf("Advanced difficulty selected\n");
-			}
-
-			else if (difficulty == 4) {
-				valid++;
-				printf("Expert difficulty selected\n");
-			}
-
+	        //Get the level of difficulty from the user
+        	do{
+			printf("\nChoose the level of difficulty (1-Beginner, 2-Intermediate, 3-Advanced, 4-Expert): ");
+			scanf("%d",&level);
+		   
+			if ((level < 1) || (level > 4))
+				puts("The entered value is not valid");
+		   
 			else {
-				printf("Invalid difficulty input\n \n");
+		        
+				switch (level) {
+		           		
+					case 1:
+		                	puts("You have chosen the beginner level");
+					missing_count = 3;
+		                	break;
+		            
+					case 2:
+		                	puts("You have chosen the intermediate level");
+					missing_count = 5;
+		                	break;
+		
+			            	case 3:
+		                	puts("You have chosen the advanced level");
+					missing_count = 7;
+		                	break;
+		            
+					case 4:
+		               		puts("You have chosen the expert level");
+		                	missing_count = 9;
+					break;
+		        
+				}
+				
+				break;
 			}
 
-		} //End While for difficulty
-
+	    	} while (1);
+	
 		/////////////////////////////////////////////////////////////////////////////
 		// 1.Generate a random main board by shuffling the main_board
 
@@ -112,28 +112,29 @@ int main(void) {
 			else {
 				operators_array[g] = '*';
 			}
-			
+
 		}
 
 		/////////////////////////////////////////////////////////////////////////////	
 		// 3. Calculate the results in columns and rows
 	
 		//Calculating the row results
-		int row_counter = 0;
+		int oper_counter = 0;
 		int row_index = 0;
-		
+		int pos; 
+
 		row_results[0] = main_board[0];
 		row_results[1] = main_board[3];
 		row_results[2] = main_board[6];
 	
-		for (int pos = 0; pos <= 8; pos++) {
+		for (pos = 0; pos <= 7; pos++) {
 		
 			//Determining the operator needed	
-			if (operators_array[row_counter] == '+') {
+			if (operators_array[oper_counter] == '+') {
 				row_results[row_index] = row_results[row_index] + main_board[pos+1];
 			}
 
-			else if (operators_array[row_counter] == '-') {
+			else if (operators_array[oper_counter] == '-') {
 				row_results[row_index] = row_results[row_index] - main_board[pos+1];
 			}
 
@@ -141,73 +142,75 @@ int main(void) {
 				row_results[row_index] = row_results[row_index] * main_board[pos+1];	
 			}		
 
-			row_counter++;	
+			oper_counter++;	
 	
 			//Checking for a row switch
-			if (row_counter == 2) {
-				pos = 3;
+			if (oper_counter == 2 || oper_counter == 4) {
+				pos++;
 				row_index++;
-			} 
-			
-			else if (row_counter == 4) {
-				pos = 6;
-				row_index++;
-			}
-			
+			} 	
+		
 			//Check to see if all six operators regarding rows have been looped through
-			if (row_counter == 5) {
+			if (oper_counter == 6) {
 				break;
 			}
 		
 		}
 
-		//Calculating the column results
-/*		int column_counter = 6;
+		//Calculating the column results 
+		oper_counter = 6;
+		pos = 3;	
+
 		int column_index = 0;
+		int oper_value = 6;
 
 		column_results[0] = main_board[0];
 		column_results[1] = main_board[1];
 		column_results[2] = main_board[2];
-
-		for (int loc = 0; loc <= 8; loc++) {
 	
-			//Determing the operator needed
-			if (operators_array[column_counter] == '+') {
-				column_results[column_index] = column_results[column_index] + main_board[loc+1];
+		while (1) {
+		
+			//Determining the operator needed	
+			if (operators_array[oper_value] == '+') {
+				column_results[column_index] = column_results[column_index] + main_board[pos];
 			}
 
-			else if (operators_array[column_counter] == '-') {
-				column_results[column_index] = column_results[column_index] - main_board[loc+1];
+			else if (operators_array[oper_value] == '-') {
+				column_results[column_index] = column_results[column_index] - main_board[pos];
 			}
 
-			else {
-				column_results[column_index] = column_results[column_index] * main_board[loc+1];
-			}
-
-			column_counter++;
-
+			else { 
+				column_results[column_index] = column_results[column_index] * main_board[pos];	
+			}		
+			
+			oper_value = oper_value + 3; 
+			pos = pos + 3;
+			oper_counter++;	
+	
 			//Checking for a column switch
-			if (column_counter == 8) {
-				loc = 1;
+			if (oper_counter == 8) {
+				pos = 4;
 				column_index++;
-			}
+				oper_value = 7;
+			} 	
 
-			else if (column_counter == 10) {
-				loc = 2;
+			else if (oper_counter == 10) {
+				pos = 5;
 				column_index++;
+				oper_value = 8;
 			}
-
-			//Checking to see if all six operators regarding columns have been looped through
-			if (column_counter == 11) {
+		
+			//Check to see if all six operators regarding columns have been looped through
+			if (oper_counter == 12) {
 				break;
 			}
-
+		
 		}
-*/	
-		/////////////////////////////////////////////////////////////////////////////
-		// 4. Initializing missing array to 0
 
-		int missing_array[9] = {0};	
+		/////////////////////////////////////////////////////////////////////////////
+		// 4. Initializing missing temp_boarday to 0
+
+		int missing_array[9] = {0};
 	
 		/////////////////////////////////////////////////////////////////////////////
 		// 5. Copy the main_board into game_board
@@ -223,7 +226,7 @@ int main(void) {
 		//Based on the selected difficulty, 3, 5, or 7 board values will be hidden		
 		i = 0; // initializing i to 0
     
-		while (i < difficulty*2+1) {								
+		while (i < level*2+1) {								
 
 			int r = rand() % 3;
 			int c = rand() % 3;
@@ -286,7 +289,7 @@ int main(void) {
                         			printf(" %c\t", operators_array[(i*2) + j]);
                     
 					else
-                       				printf("= %d", column_results[i]); //Show the rows results
+                       				printf("= %d", row_results[i]); //Show the rows results
                			}
                 
 				printf("\n");
@@ -297,23 +300,31 @@ int main(void) {
 			}
 	
 			for (i = 0 ; i < 3; i++) //Show the columnar results
-				printf(" %d\t\t", row_results[i]);
+				printf(" %d\t\t", column_results[i]);
           		
 			printf("\n---------------------------------------------------\n");
 		
 			/////////////////////////////////////////////////////////////////////////////
 			// 7. Display the missing values and update the missing_count variable
 		
-			printf("List of Missing Values:\n \n");			
+			printf("List of Missing Values:\n");			
 
-			
+			for (int display = 0; display <= 8; display++) {
+				
+				if (missing_array[display] != 0) {	
+					printf("%d\t", missing_array[display]);	
+				}
+
+			}
 
 			printf("\n---------------------------------------------------\n");
 		
 			/////////////////////////////////////////////////////////////////////////////
 			// 8. Break if the missing values are empty 
-			
-			
+	
+			if (missing_count == 0) {
+				break;
+			}	
 			
 			/////////////////////////////////////////////////////////////////////////////
 
@@ -328,17 +339,17 @@ int main(void) {
 	         		break;
 	        
 	       		if (r < 1 || r > 3 || c < 1 || c > 3){
-	            		printf("Invalid row and/or column numbers. Try again.");
+	            		printf("Invalid row and/or column numbers. Try again.\n");
 	           	 	continue;
 	        	}
 	        
 	       		if (v < 1 || v > 9) {
-	           		printf("Invalid cell value. Try again.");
+	           		printf("Invalid cell value. Try again.\n");
 	           		continue;
 	        	}
 	        
 	       		if (missing_array[v-1]<1) {
-	            		printf("This value is already there. Try again.");
+	            		printf("This value is already there. Try again.\n");
 	            		continue;
 	        	}
 
@@ -346,8 +357,68 @@ int main(void) {
 			/* 9. If the selected cell is changeable, add the value into the cell and remove
 			it from the missing values, in other case show an error and repeat the inner loop */
 
+			if (r > 0 && r <= 3 && c > 0 && c <= 3 && v >= 1 && v <= 9) {
 			
+				//If input embodies first column
+				if (c == 1) {
+				
+					if (r == 1) {
+						temp_board[0] = v;
+					}
 
+					if (r == 2) {
+						temp_board[3] = v;
+					}
+
+					else {
+						temp_board[6] = v;
+					}
+
+					missing_count--;
+
+				}	
+		
+				//If input embodies second column
+				else if (c == 2 && r > 0 && r <= 3) {
+				
+					if (r == 1) {
+						temp_board[1] = v;
+						
+					}
+
+					if (r == 2) {
+						temp_board[4] = v;
+					}
+
+					else {
+						temp_board[7] = v;
+					}
+
+					missing_count--;
+
+				}
+
+				//If input embodies third column
+				else {
+	
+					if (r == 1) {
+						temp_board[2] = v;
+					}
+
+					if (r == 2) {
+						temp_board[5] = v;
+					}
+
+					else {
+						temp_board[8] = v;
+					}
+
+					missing_count--;
+
+				}	
+
+			}	
+		
 			/////////////////////////////////////////////////////////////////////////////
 				
 		} while (1); //End of inner loop which started on line 172
@@ -355,7 +426,14 @@ int main(void) {
         	/////////////////////////////////////////////////////////////////////////////
 		// 10. Check the results
 
+		for (int final = 0; final <= 8; final++) {		
 
+			if (temp_board[final] != main_board[final]) {
+				check_game = 0;
+				break;
+			}
+		
+		}
 
 		/////////////////////////////////////////////////////////////////////////////
 		
@@ -368,13 +446,12 @@ int main(void) {
         	printf("#######################################\n");
         	printf("   Do you want to play again? (Yes:1, No:0)\n"); // ask the user to play again
         	printf("#######################################\n");
-        	scanf ("%d", &play_again);
+        	scanf("%d", &play_again);
         
         	if (!play_again) {
             		printf("Bye!\n");
            	 	break;
         	}
-
 
 	} while (1); //End the outer loop
 
