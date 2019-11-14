@@ -9,20 +9,20 @@ int main(void) {
 	while (c < 9) {
 	
 		//Ask user for user input
-		printf("Enter a row and column number & an integer value: ");
+		printf("Enter a row number [0,2], a column number [0,2], & an integer value [1,9]: ");
 		scanf("%d %d %d", &row, &col, &num);
 
 		//Statement regarding valid inputs
 		if (row >= 0 && row <= 2 && col >= 0 && col <= 2 && num >= 1 && num <= 9) {
 			
 			//If input embodies first column
-			if (col == 0 && row >= 0 && row <= 2) {
+			if (col == 0) {
 				
 				if (row == 0) {
 					arr[0] = num;
 				}
 
-				if (row == 1) {
+				else if (row == 1) {
 					arr[3] = num;
 				}
 
@@ -33,13 +33,13 @@ int main(void) {
 			}
 		
 			//If input embodies second column
-			else if (col == 1 && row >= 0 && row <= 2) {
+			else if (col == 1) {
 				
 				if (row == 0) {
 					arr[1] = num;
 				}
 
-				if (row == 1) {
+				else if (row == 1) {
 					arr[4] = num;
 				}
 
@@ -56,7 +56,7 @@ int main(void) {
 					arr[2] = num;
 				}
 
-				if (row == 1) {
+				else if (row == 1) {
 					arr[5] = num;
 				}
 

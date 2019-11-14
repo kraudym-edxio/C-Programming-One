@@ -1,7 +1,7 @@
 /* 
 	NineGaps.c
 	Completed by: Edxio Kraudy Mora
-	Date: Wednesday November 6, 2019
+	Date: Thursday November 14, 2019
 */
 
 #include <stdio.h> 
@@ -50,17 +50,17 @@ int main(void) {
 		            
 					case 2:
 		                	puts("You have chosen the intermediate level");
-					missing_count = 5;
-		                	break;
+		                	missing_count = 5;
+					break;
 		
 			            	case 3:
 		                	puts("You have chosen the advanced level");
-					missing_count = 7;
-		                	break;
+		                	missing_count = 7;
+					break;
 		            
 					case 4:
 		               		puts("You have chosen the expert level");
-		                	missing_count = 9;
+					missing_count = 9;
 					break;
 		        
 				}
@@ -327,24 +327,24 @@ int main(void) {
  		
 			int r, c, v;
 
-			printf("Enter a row number (1-3), column(1-3), and a value (one of the missing values): ");
+			printf("Enter a row number (1-3), column number (1-3), and a missing value: ");
 	        	scanf("%d %d %d", &r, &c, &v);
 	        
 			if (r==0 || c==0 || v==0)
 	         		break;
 	        
 	       		if (r < 1 || r > 3 || c < 1 || c > 3){
-	            		printf("Invalid row and/or column numbers. Try again.\n");
+	            		printf("Invalid row and/or column numbers. Try again.\n \n");
 	           	 	continue;
 	        	}
 	        
 	       		if (v < 1 || v > 9) {
-	           		printf("Invalid cell value. Try again.\n");
+	           		printf("Invalid cell value. Try again.\n \n");
 	           		continue;
 	        	}
 	        
 	       		if (missing_array[v-1]<1) {
-	            		printf("This is not a missing value. Try again.\n");
+	            		printf("This is not a missing value. Try again.\n \n");
 	            		continue;
 	        	}
 
@@ -352,72 +352,113 @@ int main(void) {
 			/* 9. If the selected cell is changeable, add the value into the cell and remove
 			it from the missing values, in other case show an error and repeat the inner loop */
 
-			//Determining if selected cell is changeable
-//			if () {
-//				printf("Invalid input, cell is not changeable\n");
-//			}
-		
-
-			//If input embodies first column
+			//If input embodies first row
+			int del;
+				
 			if (r == 1) {
-			
-				if (c == 1) {
-					temp_board[0] = v;
+
+				if (c == 1 && temp_board[0] == '?') {
+					temp_board[0] = v;	
 				}
 
-				else if (c == 2) {
+				else if (c == 2 && temp_board[1] == '?') {
 					temp_board[1] = v;
 				}
 
-				else {
+				else if (c == 3 && temp_board[2] == '?') {
 					temp_board[2] = v;
 				}
 
+				else {
+					printf("Cell is not changeable, try again.\n \n");
+					continue;			
+				}
+		
+				//Removing guessed value from missing_array		
+				for (del = 0; del <= 8; del++) {
+
+					if (missing_array[del] == v) {
+						missing_array[del] = 0;
+					}
+
+				}
+
+				//Update missing count
 				missing_count--;
 
 			}	
 		
-			//If input embodies second column
+			//If input embodies second row
 			else if (r == 2) {
 				
-				if (c == 1) {
-					temp_board[3] = v;		
+				if (c == 1 && temp_board[3] == '?') {
+					temp_board[3] = v;	
 				}
 
-				else if (c == 2) {
+				else if (c == 2 && temp_board[4] == '?') {
 					temp_board[4] = v;
 				}
 
-				else {
+				else if (c == 3 && temp_board[5] == '?') {
 					temp_board[5] = v;
 				}
 
+				else {
+					printf("Cell is not changeable, try again.\n \n");
+					continue;
+				}
+			
+				//Removing guessed value from missing_array		
+				for (del = 0; del <= 8; del++) {
+
+					if (missing_array[del] == v) {
+						missing_array[del] = 0;
+					}
+
+				}
+
+				//Update missing count
 				missing_count--;
 
 			}
 
-			//If input embodies third column
+			//If input embodies third row
 			else {
 	
-				if (c == 1) {
+				if (c == 1 && temp_board[6] == '?') {
 					temp_board[6] = v;
 				}
 
-				else if (c == 2) {
+				else if (c == 2 && temp_board[7] == '?') {
 					temp_board[7] = v;
 				}
 
-				else {
+				else if (c == 3 && temp_board[8] == '?') {
 					temp_board[8] = v;
 				}
 
+				else {
+					printf("Cell is not changeable, try again.\n \n");
+					continue;
+				}
+	
+				//Removing guessed value from missing_array	
+				for (del = 0; del <= 8; del++) {
+
+					if (missing_array[del] == v) {
+						missing_array[del] = 0;
+					}
+
+				}
+
+				//Update missing count
 				missing_count--;
 
 			}	
 
 			/////////////////////////////////////////////////////////////////////////////
 				
-		} while (1); //End of inner loop which started on line 172
+		} while (1); //End of inner loop
 
         	/////////////////////////////////////////////////////////////////////////////
 		// 10. Check the results
@@ -440,7 +481,7 @@ int main(void) {
             		printf ("Numbers were allocated incorrectly, you lose.\n");
         
         	printf("#############################################\n");
-        	printf("Would you like to play again? (Yes:1, No:0)\n"); // ask the user to play again
+        	printf("Would you like to play again? (Yes:1, No:0)\n"); //Ask the user to play again
         	printf("#############################################\n");
        		scanf("%d", &play_again);
          	
