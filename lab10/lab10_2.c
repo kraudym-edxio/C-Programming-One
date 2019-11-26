@@ -44,7 +44,7 @@ char plaintext () {
 			character = character - key;
 		}
 
-		if (character > 'z') {
+		if (character < 'a') {
 			character = character + 'z' - 'a' + 1;
 		}
 
