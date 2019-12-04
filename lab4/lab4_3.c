@@ -20,7 +20,7 @@ int main(void) {
 
 	}	
 
-	//Process if year is not centruy year. 
+	//Process if year is not century year. 
 	else {
 
 		if (year % 4 == 0) {
